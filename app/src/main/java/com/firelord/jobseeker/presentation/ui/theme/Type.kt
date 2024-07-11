@@ -1,4 +1,4 @@
-package com.firelord.jobseeker.ui.theme
+package com.firelord.jobseeker.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
