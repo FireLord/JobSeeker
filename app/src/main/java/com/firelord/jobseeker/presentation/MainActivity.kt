@@ -4,13 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
+import cafe.adriel.voyager.transitions.SlideTransition
+import com.firelord.jobseeker.presentation.ui.screen.home.HomeScreen
 import com.firelord.jobseeker.presentation.ui.theme.JobSeekerTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +16,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JobSeekerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                Navigator(
+                    screen = HomeScreen(),
+                    disposeBehavior = NavigatorDisposeBehavior(
+                        disposeNestedNavigators = false,
+                        disposeSteps = true
                     )
+                ) {
+                    SlideTransition(navigator = it)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JobSeekerTheme {
-        Greeting("Android")
     }
 }

@@ -1,12 +1,14 @@
 package com.firelord.jobseeker.data.model
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Location(
     @SerialName("id")
-    val id: Int,
+    val id: Int? = null,
     @SerialName("locale")
-    val locale: String,
+    val locale: String? = null,
     @SerialName("state")
-    val state: Int
+    val state: Int? = null
 )
