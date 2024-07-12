@@ -29,6 +29,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.firelord.jobseeker.presentation.ui.screen.detail.DetailScreen
 import com.firelord.jobseeker.presentation.ui.screen.bookmark.viewModel.BookmarkViewModel
 import com.firelord.jobseeker.presentation.ui.commonComponent.JobCard
+import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.viewModel.BottomNavViewModel
 
 class BookmarkScreen: Screen {
     @Composable
@@ -36,9 +37,11 @@ class BookmarkScreen: Screen {
         val viewModel = getScreenModel<BookmarkViewModel>()
         val navigator = LocalNavigator.currentOrThrow
         val jobModelListState = viewModel.jobModelList.collectAsStateWithLifecycle(initialValue = emptyList())
+        val navViewModel = getScreenModel<BottomNavViewModel>()
 
         LaunchedEffect(key1 = true) {
             viewModel.fetchSavedJobList()
+            navViewModel.isNavVisible.value = true
         }
 
         Scaffold(
@@ -76,6 +79,7 @@ class BookmarkScreen: Screen {
                                 jobModel = jobData,
                                 onCardClick = {
                                     navigator.push(DetailScreen(jobModel = jobData))
+                                    navViewModel.isNavVisible.value = false
                                 }
                             )
                         }

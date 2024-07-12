@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
@@ -30,10 +31,13 @@ import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.component.CustomBottomNavigation
 import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.tabs.BookmarkTab
 import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.tabs.HomeTab
+import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.viewModel.BottomNavViewModel
 
 class MainBottomNavScreen: Screen {
     @Composable
     override fun Content() {
+        val viewModel = getScreenModel<BottomNavViewModel>()
+
         TabNavigator(
             tab = HomeTab,
             tabDisposable = {
@@ -49,23 +53,25 @@ class MainBottomNavScreen: Screen {
                  print(it)
                 },
                 bottomBar = {
-                    Box(
-                        contentAlignment = Alignment.BottomCenter,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(40.dp)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceAround,
-                            verticalAlignment = Alignment.CenterVertically,
+                    if (viewModel.isNavVisible.value) {
+                        Box(
+                            contentAlignment = Alignment.BottomCenter,
                             modifier = Modifier
-                                .shadow(elevation = 10.dp, shape = RoundedCornerShape(30.dp))
-                                .clip(RoundedCornerShape(30.dp))
-                                .width(150.dp)
-                                .background(color = Color.Black)
+                                .fillMaxWidth()
+                                .padding(40.dp)
                         ) {
-                            TabNavigationItem(tab = HomeTab)
-                            TabNavigationItem(tab = BookmarkTab)
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceAround,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .shadow(elevation = 10.dp, shape = RoundedCornerShape(30.dp))
+                                    .clip(RoundedCornerShape(30.dp))
+                                    .width(150.dp)
+                                    .background(color = Color.Black)
+                            ) {
+                                TabNavigationItem(tab = HomeTab)
+                                TabNavigationItem(tab = BookmarkTab)
+                            }
                         }
                     }
                 }

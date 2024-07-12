@@ -28,6 +28,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.firelord.jobseeker.presentation.ui.screen.detail.DetailScreen
 import com.firelord.jobseeker.presentation.ui.commonComponent.JobCard
+import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.viewModel.BottomNavViewModel
 import com.firelord.jobseeker.presentation.ui.screen.home.component.SearchBar
 import com.firelord.jobseeker.presentation.ui.screen.home.viewModel.HomeViewModel
 
@@ -37,10 +38,13 @@ class HomeScreen: Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<HomeViewModel>()
         val jobModelListState = viewModel.jobModelList.collectAsLazyPagingItems()
+        val navViewModel = getScreenModel<BottomNavViewModel>()
 
-        LaunchedEffect(key1 = Unit) {
+        LaunchedEffect(key1 = true) {
             viewModel.fetchJobList()
+            navViewModel.isNavVisible.value = true
         }
+
         Scaffold(
             containerColor = Color.White
         ) { innerPadding ->
@@ -94,6 +98,7 @@ class HomeScreen: Screen {
                                     jobModel = jobData,
                                     onCardClick = {
                                         navigator.push(DetailScreen(jobModel = jobData))
+                                        navViewModel.isNavVisible.value = false
                                     }
                                 )
                             }
