@@ -1,4 +1,4 @@
-package com.firelord.jobseeker.presentation.ui.screen.home.component
+package com.firelord.jobseeker.presentation.ui.commonComponent
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable

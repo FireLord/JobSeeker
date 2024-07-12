@@ -1,5 +1,8 @@
 package com.firelord.jobseeker.presentation.ui.screen.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,14 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.firelord.jobseeker.presentation.ui.screen.detail.DetailScreen
-import com.firelord.jobseeker.presentation.ui.screen.home.component.JobCard
+import com.firelord.jobseeker.presentation.ui.commonComponent.JobCard
 import com.firelord.jobseeker.presentation.ui.screen.home.component.SearchBar
 import com.firelord.jobseeker.presentation.ui.screen.home.viewModel.HomeViewModel
 
@@ -80,16 +82,21 @@ class HomeScreen: Screen {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                LazyColumn {
-                    items(jobModelListState.itemCount) { index ->
-                        val jobData = jobModelListState[index]
-                        if (jobData != null) {
-                            JobCard(
-                                jobModel = jobData,
-                                onCardClick = {
-                                    navigator.push(DetailScreen(jobModel = jobData))
-                                }
-                            )
+                AnimatedVisibility(
+                    visible = jobModelListState.itemCount > 0,
+                    enter = fadeIn() + slideInHorizontally(),
+                ) {
+                    LazyColumn {
+                        items(jobModelListState.itemCount) { index ->
+                            val jobData = jobModelListState[index]
+                            if (jobData != null) {
+                                JobCard(
+                                    jobModel = jobData,
+                                    onCardClick = {
+                                        navigator.push(DetailScreen(jobModel = jobData))
+                                    }
+                                )
+                            }
                         }
                     }
                 }

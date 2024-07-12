@@ -1,4 +1,4 @@
-package com.firelord.jobseeker.presentation.ui.screen.home.bookmark.viewModel
+package com.firelord.jobseeker.presentation.ui.screen.bookmark.viewModel
 
 import android.util.Log
 import cafe.adriel.voyager.core.model.ScreenModel

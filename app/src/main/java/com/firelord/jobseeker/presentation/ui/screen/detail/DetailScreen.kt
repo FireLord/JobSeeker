@@ -2,6 +2,7 @@ package com.firelord.jobseeker.presentation.ui.screen.detail
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -99,10 +101,17 @@ data class DetailScreen(
                         )
 
                         NavButton(
-                            icon = Icons.Default.FavoriteBorder,
+                            icon = if (jobModel.isBookmarked == true) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             onIconClick = {
                                 scope.launch {
-                                    viewModel.saveJob(jobModel)
+                                    if (jobModel.isBookmarked == true) {
+                                        viewModel.deleteJob(jobModel = jobModel)
+                                        Toast.makeText(context, "Job removed from bookmark", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        viewModel.saveJob(jobModel = jobModel.copy(isBookmarked = true))
+                                        Toast.makeText(context, "Job saved to bookmark", Toast.LENGTH_SHORT).show()
+                                    }
+                                    navigator.pop()
                                 }
                             }
                         )

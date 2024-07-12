@@ -1,7 +1,13 @@
-package com.firelord.jobseeker.presentation.ui.screen.home.bookmark
+package com.firelord.jobseeker.presentation.ui.screen.bookmark
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,8 +27,8 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.firelord.jobseeker.presentation.ui.screen.detail.DetailScreen
-import com.firelord.jobseeker.presentation.ui.screen.home.bookmark.viewModel.BookmarkViewModel
-import com.firelord.jobseeker.presentation.ui.screen.home.component.JobCard
+import com.firelord.jobseeker.presentation.ui.screen.bookmark.viewModel.BookmarkViewModel
+import com.firelord.jobseeker.presentation.ui.commonComponent.JobCard
 
 class BookmarkScreen: Screen {
     @Composable
@@ -40,6 +46,7 @@ class BookmarkScreen: Screen {
         ) { innerPadding ->
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(innerPadding)
                     .padding(20.dp)
             ) {
@@ -51,15 +58,27 @@ class BookmarkScreen: Screen {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                LazyColumn {
-                    items(jobModelListState.value.size) { index ->
-                        val jobData = jobModelListState.value[index]
-                        JobCard(
-                            jobModel = jobData,
-                            onCardClick = {
-                                navigator.push(DetailScreen(jobModel = jobData))
-                            }
-                        )
+                if (jobModelListState.value.isEmpty()) {
+                    Text(
+                        text = "No saved jobs found",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Normal,
+                    )
+                }
+                AnimatedVisibility(
+                    visible = jobModelListState.value.isNotEmpty(),
+                    enter = fadeIn() + slideInHorizontally(),
+                ) {
+                    LazyColumn {
+                        items(jobModelListState.value.size) { index ->
+                            val jobData = jobModelListState.value[index]
+                            JobCard(
+                                jobModel = jobData,
+                                onCardClick = {
+                                    navigator.push(DetailScreen(jobModel = jobData))
+                                }
+                            )
+                        }
                     }
                 }
             }
