@@ -115,6 +115,7 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.json)
     implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.mock)
 
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
@@ -122,11 +123,25 @@ dependencies {
     // Kotlin datetime
     implementation(libs.kotlinx.datetime)
 
+    // --------------------------------------------------
+    // Coroutines for testing
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Google Truth
+    testImplementation(libs.truth)
+
+    // Junit
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+
+    // Androidx Expresso
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Compose test
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Compose debug preview
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

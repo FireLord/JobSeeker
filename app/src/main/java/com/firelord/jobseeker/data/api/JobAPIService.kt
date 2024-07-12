@@ -11,7 +11,7 @@ import io.ktor.client.request.parameter
 class JobAPIService(private val client: HttpClient) {
     suspend fun getJobList(page: Int) : Resource<JobFetchModel> {
         return try {
-            val response = client.get(JOB_API_URL) {
+            val response = client.get("$JOB_API_URL/common/jobs") {
                 parameter("page", page)
             }.body<JobFetchModel>()
             Resource.Success(response)
