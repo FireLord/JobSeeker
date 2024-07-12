@@ -9,7 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
-import com.firelord.jobseeker.presentation.ui.screen.home.HomeScreen
+import com.firelord.jobseeker.presentation.ui.screen.bottomNavigation.MainBottomNavScreen
 import com.firelord.jobseeker.presentation.ui.theme.JobSeekerTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,13 +22,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             JobSeekerTheme {
                 Navigator(
-                    screen = HomeScreen(),
+                    screen = MainBottomNavScreen(),
                     disposeBehavior = NavigatorDisposeBehavior(
                         disposeNestedNavigators = false,
                         disposeSteps = true
                     )
                 ) {
-                    SlideTransition(navigator = it)
+                    SlideTransition(navigator = it) { screen ->
+                        screen.Content()
+                    }
                 }
             }
         }
