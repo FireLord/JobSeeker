@@ -1,10 +1,17 @@
 package com.firelord.jobseeker.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
+@Entity(tableName = "job_model")
 @Serializable
 data class JobModel(
+    @PrimaryKey
+    @SerialName("id")
+    val id: Int = UUID.randomUUID().hashCode(),
     @SerialName("company_name")
     val companyName: String? = null,
     @SerialName("contact_preference")
@@ -13,8 +20,6 @@ data class JobModel(
     val creatives: List<Creative>? = null,
     @SerialName("expire_on")
     val expireOn: String? = null,
-    @SerialName("id")
-    val id: Int? = null,
     @SerialName("is_bookmarked")
     val isBookmarked: Boolean? = null,
     @SerialName("job_category")
