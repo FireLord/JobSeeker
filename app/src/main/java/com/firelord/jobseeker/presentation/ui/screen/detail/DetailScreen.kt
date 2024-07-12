@@ -142,7 +142,7 @@ data class DetailScreen(
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = jobModel.primaryDetails?.place ?: "Location",
+                            text = jobModel.jobLocationSlug ?: "Location",
                             style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
                             fontWeight = FontWeight.Thin,

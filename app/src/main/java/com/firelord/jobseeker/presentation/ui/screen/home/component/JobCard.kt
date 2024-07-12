@@ -102,7 +102,7 @@ fun JobCard(
                     .align(Alignment.Start)
             ) {
                 Text(
-                    text = jobModel.primaryDetails?.place ?: "Location",
+                    text = jobModel.jobLocationSlug ?: "Location",
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.Black
