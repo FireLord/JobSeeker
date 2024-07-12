@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class JobFetchModel(
     @SerialName("results")
-    val results: List<Result>
+    val jobModel: List<JobModel>
 )
