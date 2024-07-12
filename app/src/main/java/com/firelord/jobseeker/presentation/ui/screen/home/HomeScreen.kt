@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -33,7 +34,7 @@ class HomeScreen: Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<HomeViewModel>()
-        val jobModelListState = viewModel.jobModelList.collectAsStateWithLifecycle(initialValue = emptyList())
+        val jobModelListState = viewModel.jobModelList.collectAsLazyPagingItems()
 
         LaunchedEffect(key1 = Unit) {
             viewModel.fetchJobList()
@@ -80,13 +81,16 @@ class HomeScreen: Screen {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 LazyColumn {
-                    items(jobModelListState.value.size) { index ->
-                        JobCard(
-                            jobModel = jobModelListState.value[index],
-                            onCardClick = {
-                                navigator.push(DetailScreen(jobModel = jobModelListState.value[index]))
-                            }
-                        )
+                    items(jobModelListState.itemCount) { index ->
+                        val jobData = jobModelListState[index]
+                        if (jobData != null) {
+                            JobCard(
+                                jobModel = jobData,
+                                onCardClick = {
+                                    navigator.push(DetailScreen(jobModel = jobData))
+                                }
+                            )
+                        }
                     }
                 }
             }

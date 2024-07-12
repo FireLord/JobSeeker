@@ -3,6 +3,7 @@ package com.firelord.jobseeker.presentation.ui.screen.detail
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
@@ -43,8 +46,10 @@ import com.firelord.jobseeker.R
 import com.firelord.jobseeker.data.model.JobModel
 import com.firelord.jobseeker.presentation.ui.screen.detail.component.MoreDetailRow
 import com.firelord.jobseeker.presentation.ui.screen.detail.component.NavButton
+import com.firelord.jobseeker.presentation.ui.screen.detail.viewModel.DetailViewModel
 import com.firelord.jobseeker.presentation.ui.theme.NeonGreen
 import com.firelord.jobseeker.presentation.ui.util.formatDDMMYY
+import kotlinx.coroutines.launch
 
 data class DetailScreen(
     private val jobModel: JobModel
@@ -54,10 +59,13 @@ data class DetailScreen(
         val navigator = LocalNavigator.currentOrThrow
         val scrollState = rememberScrollState()
         val context = LocalContext.current
+        val viewModel = getScreenModel<DetailViewModel>()
+        val scope = rememberCoroutineScope()
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(color = Color.White)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.detail_bg),
@@ -92,7 +100,11 @@ data class DetailScreen(
 
                         NavButton(
                             icon = Icons.Default.FavoriteBorder,
-                            onIconClick = {}
+                            onIconClick = {
+                                scope.launch {
+                                    viewModel.saveJob(jobModel)
+                                }
+                            }
                         )
                     }
 
