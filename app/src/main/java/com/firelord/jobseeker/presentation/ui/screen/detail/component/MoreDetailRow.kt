@@ -24,7 +24,7 @@ fun MoreDetailRow(
         Text(
             text = title,
             style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Thin,
+            fontWeight = FontWeight.Normal,
             color = Color.Gray
         )
 

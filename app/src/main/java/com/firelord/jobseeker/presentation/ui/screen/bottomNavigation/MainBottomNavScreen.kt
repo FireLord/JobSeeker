@@ -58,13 +58,12 @@ class MainBottomNavScreen: Screen {
                             contentAlignment = Alignment.BottomCenter,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(40.dp)
+                                .padding(bottom = 50.dp)
                         ) {
                             Row(
                                 horizontalArrangement = Arrangement.SpaceAround,
                                 verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier
-                                    .shadow(elevation = 10.dp, shape = RoundedCornerShape(30.dp))
                                     .clip(RoundedCornerShape(30.dp))
                                     .width(150.dp)
                                     .background(color = Color.Black)

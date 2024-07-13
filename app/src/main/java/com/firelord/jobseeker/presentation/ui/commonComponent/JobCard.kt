@@ -81,7 +81,7 @@ fun JobCard(
                     Text(
                         text = jobModel.companyName ?: "Company Name",
                         style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Thin,
+                        fontWeight = FontWeight.Normal,
                         color = Color.Gray
                     )
                 }
@@ -90,7 +90,7 @@ fun JobCard(
             Text(
                 text = jobModel.title ?: "Job Description",
                 style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Thin,
+                fontWeight = FontWeight.Normal,
                 color = Color.Gray
             )
 

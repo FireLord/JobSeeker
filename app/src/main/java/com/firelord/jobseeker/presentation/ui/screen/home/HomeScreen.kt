@@ -83,7 +83,7 @@ class HomeScreen: Screen {
                     Text(
                         text = "Show All",
                         style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Thin,
+                        fontWeight = FontWeight.Normal,
                         color = Color.Gray
                     )
                 }
@@ -106,6 +106,10 @@ class HomeScreen: Screen {
                                     }
                                 )
                             }
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(32.dp))
                         }
                     }
                 }

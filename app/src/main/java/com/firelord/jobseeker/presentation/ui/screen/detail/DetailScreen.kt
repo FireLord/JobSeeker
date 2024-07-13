@@ -148,7 +148,7 @@ data class DetailScreen(
                             text = jobModel.companyName ?: "Company Name",
                             style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
-                            fontWeight = FontWeight.Thin,
+                            fontWeight = FontWeight.Normal,
                             color = Color.Gray
                         )
 
@@ -166,7 +166,7 @@ data class DetailScreen(
                             text = jobModel.jobLocationSlug ?: "Location",
                             style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
-                            fontWeight = FontWeight.Thin,
+                            fontWeight = FontWeight.Normal,
                             color = Color.Gray
                         )
                     }
@@ -191,7 +191,7 @@ data class DetailScreen(
                         Text(
                             text = jobModel.otherDetails ?: "Job Description",
                             style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Thin,
+                            fontWeight = FontWeight.Normal,
                             color = Color.Gray
                         )
 
