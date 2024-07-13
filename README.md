@@ -1,6 +1,9 @@
 # JobSeeker App
 ![Logo](/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
+## Video
+https://github.com/user-attachments/assets/b52e438e-d8f3-4d0b-b559-f2f9bbaabdd7
+
 ## Screenshots
 <img src = "/assets/1.jpg" alt="screenshot1" width="200"/> <img src = "/assets/2.jpg" alt="screenshot2" width="200"/>
 <img src = "/assets/3.jpg" alt="screenshot3" width="200"/> <img src = "/assets/4.jpg" alt="screenshot4" width="200"/>
