@@ -10,9 +10,9 @@ https://github.com/user-attachments/assets/b52e438e-d8f3-4d0b-b559-f2f9bbaabdd7
 
 ## Libraries Used
 - Compose: For building the UI
-- Ktor: For making network requests and fetching weather data from the API.
+- Ktor: For making network requests and fetching data from the API.
 - Koin: For dependency injection
-- Room db: For storing the fetched weather data from openWeatherApi
+- Room db: For storing the bookmarked job data.
 - Voyager: For navigation
 - Coil: For image loading
 
